@@ -18,12 +18,12 @@ export const ProfileImage = styled.Image`
   border-radius: 20px;
 `;
 
-export const NewSnackContainer = styled.View`
+export const NewMealContainer = styled.View`
   align-items: flex-start;
   margin-top: 40px;
 `;
 
-export const NewSnackContainerTitle = styled.Text`
+export const NewMealContainerTitle = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.MD}px;
     font-family: ${theme.FONT_FAMILY.REGULAR};
@@ -31,4 +31,13 @@ export const NewSnackContainerTitle = styled.Text`
   `}
 
   margin-bottom: 8px;
+`;
+
+export const TitleList = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.FONT_SIZE.LG}px;
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    color: ${theme.COLORS.GRAY_700};
+  `}
+  margin-top: 32px;
 `;
