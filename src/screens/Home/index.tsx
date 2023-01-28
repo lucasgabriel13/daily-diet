@@ -1,4 +1,5 @@
-import { ScrollView, SectionList, View } from 'react-native';
+import { SectionList, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import {
   Container,
   HeaderProfile,
@@ -59,6 +60,12 @@ export function Home() {
     },
   ];
 
+  const { navigate } = useNavigation();
+
+  function handleStatisticsMeal() {
+    navigate('statistics');
+  }
+
   return (
     <Container>
       <HeaderProfile>
@@ -68,6 +75,7 @@ export function Home() {
 
       <ButtonPercentage
         percentage={90.86}
+        onPress={handleStatisticsMeal}
       />
 
       <NewMealContainer>
@@ -94,6 +102,13 @@ export function Home() {
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
+        style={{ marginTop: 32 }}
+        ItemSeparatorComponent={() => (
+          <View style={{ marginTop: 14 }} />
+        )}
+        SectionSeparatorComponent={() => (
+          <View style={{ marginTop: 16 }} />
+        )}
       />
 
 

@@ -1,6 +1,7 @@
 import { TouchableOpacityProps } from "react-native";
-import { ArrowIcon, ButtonPercentageStyleProps, Container, Subtitle, Title } from "./styles";
+import { ArrowIcon, ButtonPercentageStyleProps, Container } from "./styles";
 import { useTheme } from "styled-components/native";
+import { PercentageTitle } from "@components/PercentageTitle";
 
 type Props = TouchableOpacityProps & {
   percentage: number;
@@ -9,22 +10,16 @@ type Props = TouchableOpacityProps & {
 
 export function ButtonPercentage({ type = 'PRIMARY', percentage, ...rest }: Props) {
   const { COLORS } = useTheme();
-
-  const percentageFormatted = String(percentage).replace('.', ',');
-
-
+  
   return (
     <Container
       type={type}
       {...rest}
       activeOpacity={0.7}
     >
-      <Title>
-        {percentageFormatted}%
-      </Title>
-      <Subtitle>
-        das refeições dentro da dieta
-      </Subtitle>
+      <PercentageTitle
+        percentage={percentage}
+      />
 
       <ArrowIcon
         color={type === 'PRIMARY' ? COLORS.GREEN_DARK : COLORS.RED_DARK}

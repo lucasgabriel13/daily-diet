@@ -39,5 +39,4 @@ export const TitleList = styled.Text`
     font-family: ${theme.FONT_FAMILY.BOLD};
     color: ${theme.COLORS.GRAY_700};
   `}
-  margin-top: 32px;
 `;

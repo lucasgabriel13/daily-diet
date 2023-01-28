@@ -15,7 +15,6 @@ export const Container = styled(TouchableOpacity)`
   align-items: center;
   flex-direction: row;
   padding: 0 15px;
-  margin-top: 14px;
   justify-content: space-between;
 `;
 
