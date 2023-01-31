@@ -1,24 +1,49 @@
 import { PercentageTitle } from "@components/PercentageTitle";
+import { useNavigation } from "@react-navigation/native";
+import { ArrowLeft } from "phosphor-react-native";
+import { useTheme } from 'styled-components/native';
 import {
   BoxGroupInline,
   BoxLarge,
   BoxSmall,
   Container,
   Content,
+  GoBackButton,
   Header,
   Heading,
   SubtitleBox,
   TitleBox
 } from "./styles";
 
+
 export function GeneralStatistics() {
+  const { COLORS } = useTheme();
+
+  const { goBack } = useNavigation();
+
+  const percentage = 50.86;
+  const isPercentageGreaterThanFiftyPercent = percentage >= 50;
+
+  function handleGoBack() {
+    goBack();
+  }
+
   return (
     <Container>
       <Header
-        type="PRIMARY"
+        type={isPercentageGreaterThanFiftyPercent ? 'PRIMARY' : 'SECONDARY'}
       >
+        <GoBackButton
+          activeOpacity={0.7}
+          onPress={handleGoBack}
+        >
+          <ArrowLeft
+            color={isPercentageGreaterThanFiftyPercent ? COLORS.GREEN_DARK : COLORS.RED_DARK}
+            size={24}
+          />
+        </GoBackButton>
         <PercentageTitle
-          percentage={90.86}
+          percentage={percentage}
         />
       </Header>
 

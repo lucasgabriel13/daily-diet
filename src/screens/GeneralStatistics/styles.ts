@@ -1,3 +1,5 @@
+import { ArrowLeft } from 'phosphor-react-native';
+import { TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 type GeneralStatisticsTypeStyleProps = 'PRIMARY' | 'SECONDARY';
@@ -16,6 +18,13 @@ export const Header = styled.View<Props>`
   background-color: ${({ theme, type }) => type === 'PRIMARY' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+export const GoBackButton = styled(TouchableOpacity)`
+  position: absolute;
+  left: 24px;
+  top: 56px;
 `;
 
 export const Content = styled.View`
