@@ -66,6 +66,10 @@ export function Home() {
     navigate('statistics');
   }
 
+  function handleNewMeal() {
+    navigate('newMeal');
+  }
+
   return (
     <Container>
       <HeaderProfile>
@@ -83,6 +87,7 @@ export function Home() {
         <ButtonIcon
           icon="plus"
           title="Nova refeição"
+          onPress={handleNewMeal}
         />
       </NewMealContainer>
 
