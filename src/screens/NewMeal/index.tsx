@@ -1,4 +1,5 @@
 import { Header } from "@components/Header";
+import { Form } from "@components/Form";
 import { Container, Content } from "./styles";
 
 export function NewMeal() {
@@ -7,6 +8,7 @@ export function NewMeal() {
       <Header title="Nova refeição" />
 
       <Content>
+        <Form />
       </Content>
     </Container>
   );
