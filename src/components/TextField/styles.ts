@@ -23,7 +23,6 @@ export const Input = styled(TextInput)`
   height: 48px;
   border-radius: 6px;
   padding: 14px;
-
   ${({ theme }) => css`
     border: 1px solid ${theme.COLORS.GRAY_300};
     font-size: ${theme.FONT_SIZE.MD}px;
