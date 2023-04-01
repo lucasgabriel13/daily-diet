@@ -1,28 +1,34 @@
-import { TextField } from "@components/TextField";
-import { ButtonIcon } from '@components/ButtonIcon';
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-import { Container, InputInline, LabelSelect, SelectContainer, SelectGroup, SelectGroupItem, SelectGroupItemCircle, SelectGroupItemTitle } from "./styles";
-import { useState } from "react";
+import { TextField } from "@components/TextField";
+import { ButtonIcon } from '@components/ButtonIcon';
 import { useNavigation } from "@react-navigation/native";
+import { SelectGroup } from "@components/SelectGroup";
+
+import { Container, InputInline } from "./styles";
+import { TextFieldMask } from "@components/TextFieldMask";
+import { View } from "react-native";
 
 type MealData = {
   name: string;
   description: string;
   date: string;
   hour: string;
-  is_diet: boolean;
+  is_diet: boolean | null;
 }
 
 export function Form() {
-  const [isDiet, setIsDiet] = useState<Boolean | null>(null);
-  const { control, handleSubmit } = useForm<MealData>();
+  const [isDiet, setIsDiet] = useState<boolean | null>(null);
+  const { control, handleSubmit, formState } = useForm<MealData>({
+    mode: "onChange",
+  });
+
 
   const { navigate } = useNavigation();
 
   function handleIsDiet(value: boolean) {
     setIsDiet(value);
-    navigate('registrationCompletion', { type: 'NO_DIET' });
   }
 
   function onSubmit(data: MealData) {
@@ -32,6 +38,12 @@ export function Form() {
     } as MealData;
 
     console.log(newMeal)
+
+    if (!isDiet) {
+      navigate('registrationCompletion', { type: 'NO_DIET' });
+    } else {
+      navigate('registrationCompletion', { type: 'DIET' });
+    }
   }
 
   return (
@@ -79,15 +91,18 @@ export function Form() {
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextField
-              width="45%"
+            <TextFieldMask
               label="Data"
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
+              keyboardType="numeric"
+              mask={[/[0-3]/, /[0-9]/, '/', /[0-1]/, /[0-2]/, '/', /\d/, /\d/, /\d/, /\d/]}
+              placeholderFillCharacter="0"
             />
           )}
         />
+        <View style={{ width: 20 }} />
         <Controller
           name="hour"
           control={control}
@@ -95,48 +110,29 @@ export function Form() {
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextField
-              width="45%"
+            <TextFieldMask
               label="Hora"
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
+              keyboardType="numeric"
+              mask={[/[0-2]/, /[0-9]/, ':', /[0-5]/, /[0-9]/,]}
+              placeholderFillCharacter="0"
             />
           )}
         />
       </InputInline>
 
-      {/**
-       * 
-       * SEPARAR O FORM: CRIAR UM COMPONENTE SELECT DENTRO DE FORM/COMPONENTS
-       * 
-       */}
-
-      <SelectContainer>
-        <LabelSelect>Está dentro da dieta?</LabelSelect>
-        <SelectGroup>
-          <SelectGroupItem
-            type="PRIMARY"
-            active={isDiet === true}
-            onPress={() => handleIsDiet(true)}
-          >
-            <SelectGroupItemCircle type="PRIMARY" />
-            <SelectGroupItemTitle>Sim</SelectGroupItemTitle>
-          </SelectGroupItem>
-          <SelectGroupItem
-            type="SECONDARY"
-            active={isDiet === false}
-            onPress={() => handleIsDiet(false)}
-          >
-            <SelectGroupItemCircle type="SECONDARY" />
-            <SelectGroupItemTitle>Não</SelectGroupItemTitle>
-          </SelectGroupItem>
-        </SelectGroup>
-      </SelectContainer>
+      <SelectGroup
+        isDiet={isDiet}
+        onPressIsDiet={() => handleIsDiet(true)}
+        onPressNoIsDiet={() => handleIsDiet(false)}
+      />
 
       <ButtonIcon
         title="Cadastrar refeição"
         onPress={handleSubmit(onSubmit)}
+        disabled={!formState.isValid}
       />
     </Container>
   );
